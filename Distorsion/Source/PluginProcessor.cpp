@@ -198,3 +198,44 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new DistorsionAudioProcessor();
 }
+
+int DistorsionAudioProcessor::getNumParameters() { return totalNumParam; }
+
+float DistorsionAudioProcessor::getParameter(int index){
+    if (index >= 0 && index < totalNumParam)
+    {
+        return UserParams[index];
+    }
+    else return 0;
+}
+
+void DistorsionAudioProcessor::setParameter(int index, float value)
+{
+    switch (index) {
+        case MasterBypass:
+            UserParams[MasterBypass] = value;
+            break;
+        case Gain:
+            UserParams[Gain] = value;
+            break;
+        case Threshold:
+            UserParams[Threshold] = value;
+            break;
+        case Volume:
+            UserParams[Volume] = value;
+            break;
+        default: return;
+    }
+}
+
+const juce::String DistorsionAudioProcessor::getParameterName(<#int index#>)
+{
+    switch (index(<#const char *#>, <#int#>)) {
+        case MasterBypass:return "MasterBypass";
+        case Gain:return "Gain";
+        case Threshold:return "Threshold";
+        case Volume:return "Volume";
+        default:return juce::String::empty;
+    }
+}
+
