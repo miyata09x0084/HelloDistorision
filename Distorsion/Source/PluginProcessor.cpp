@@ -150,9 +150,20 @@ void DistorsionAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     // interleaved by keeping the same state.
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        auto* channelData = buffer.getWritePointer (channel);
+        float* channelData = buffer.getWritePointer (channel);
 
-        // ..do something to the data...
+        for (long buffNum = 0; buffNum<buffer.getNumSamples(); buffNum++)
+        {
+            float thresold =    0.7f;
+            if (channelData[buffNum] >= thresold)
+            {
+                channelData[buffNum] = thresold;
+            }
+            else if (channelData[buffNum] <= -thresold)
+            {
+                channelData[buffNum] = -thresold;
+            }
+        }
     }
 }
 
