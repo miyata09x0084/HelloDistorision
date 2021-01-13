@@ -228,14 +228,31 @@ void DistorsionAudioProcessor::setParameter(int index, float value)
     }
 }
 
-const juce::String DistorsionAudioProcessor::getParameterName(<#int index#>)
+const juce::String DistorsionAudioProcessor::getParameterName(int index)
 {
-    switch (index(<#const char *#>, <#int#>)) {
-        case MasterBypass:return "MasterBypass";
-        case Gain:return "Gain";
-        case Threshold:return "Threshold";
-        case Volume:return "Volume";
-        default:return juce::String::empty;
+    switch (index)
+    {
+    case MasterBypass: return "Master Bypass";
+    case Gain: return "Gain";
+    case Threshold: return "Threshold";
+    case Volume: return "Volume";
+        default:return juce::String();
+    }
+}
+
+const juce::String DistorsionAudioProcessor::getParameterText(int index)
+{
+    switch (index)
+    {
+    case MasterBypass:
+        return UserParams[MasterBypass] == 1.0f ? "BYPASS" : "EFFECT";
+    case Gain:
+        return juce::String(juce::Decibels::gainToDecibels(pow(UserParams[Gain], 2)*2.0f), 1)+"dB";
+    case Threshold:
+        return juce::String(juce::Decibels::gainToDecibels(pow(UserParams[Threshold], 2)), 1)+"dB";
+    case Volume:
+        return juce::String(juce::Decibels::gainToDecibels(pow(UserParams[Volume], 2)*2.0f), 1)+"dB";
+        default:return juce::String();
     }
 }
 
