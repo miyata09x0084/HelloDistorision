@@ -70,6 +70,11 @@ DistorsionAudioProcessorEditor::DistorsionAudioProcessorEditor (DistorsionAudioP
     addAndMakeVisible(&VolumeLabel);
     
     addAndMakeVisible(&Bypass);
+    
+    Gain.addListener(this);
+    Threshold.addListener(this);
+    Volume.addListener(this);
+    Bypass.addListener(this);
 }
 
 DistorsionAudioProcessorEditor::~DistorsionAudioProcessorEditor()
