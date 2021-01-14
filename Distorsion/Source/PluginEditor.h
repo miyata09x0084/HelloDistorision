@@ -16,7 +16,8 @@
 */
 class DistorsionAudioProcessorEditor  : public juce::AudioProcessorEditor,
     private juce::Slider::Listener,
-    private juce::Button::Listener
+    private juce::Button::Listener,
+    private juce::Timer
 {
 public:
     DistorsionAudioProcessorEditor (DistorsionAudioProcessor&);
@@ -44,5 +45,7 @@ private:
     void sliderValueChanged(juce::Slider *changedSlider) override;
     void buttonClicked(juce::Button* clickedButton) override;
 
+    void timerCallback() override;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DistorsionAudioProcessorEditor)
 };

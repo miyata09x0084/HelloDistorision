@@ -86,6 +86,9 @@ void DistorsionAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
+    
+    juce::Image image_bg = juce::ImageCache::getFromMemory(BinaryData::P4284097_JPG,BinaryData::P4284097_JPGSize);
+    g.drawImageWithin(image_bg, 0, 0, 400, 300, juce::RectanglePlacement::centred, false);
 
 //    g.setColour (juce::Colours::white);
 //    g.setFont (15.0f);
@@ -105,4 +108,43 @@ void DistorsionAudioProcessorEditor::resized()
     GainLabel.setBounds(40, 190, 60, 30);
     ThresholdLabel.setBounds(140, 190, 120, 30);
     VolumeLabel.setBounds(300, 190, 60, 30);
+}
+
+void DistorsionAudioProcessorEditor::sliderValueChanged(juce::Slider *changedSlider)
+{
+    if (changedSlider == &Gain)
+    {
+        processor.setParameterNotifyingHost(DistorsionAudioProcessor::Gain, Gain.getValue());
+        GainLabel.setText("Gain\n" + processor.getParameterText(DistorsionAudioProcessor::Gain), juce::dontSendNotification);
+    }
+    else if (changedSlider == &Threshold)
+    {
+        processor.setParameterNotifyingHost(DistorsionAudioProcessor::Threshold, Threshold.getValue());
+        ThresholdLabel.setText("Threshold\n" + processor.getParameterText(DistorsionAudioProcessor::Threshold), juce::dontSendNotification);
+    }
+    else if (changedSlider == &Volume)
+    {
+        processor.setParameterNotifyingHost(DistorsionAudioProcessor::Volume, Volume.getValue());
+        VolumeLabel.setText("Volume\n" + processor.getParameterText(DistorsionAudioProcessor::Volume), juce::dontSendNotification);
+    }
+}
+
+void DistorsionAudioProcessorEditor::buttonClicked(juce::Button * clickedButton)
+{
+    if (clickedButton == &Bypass)
+    {
+        processor.setParameterNotifyingHost(DistorsionAudioProcessor::MasterBypass, Bypass.getToggleState());
+    }
+}
+
+void DistorsionAudioProcessorEditor::timerCallback()
+{
+    Gain.setValue(processor.getParameter(DistorsionAudioProcessor::Gain), juce::dontSendNotification);
+    Threshold.setValue(processor.getParameter(DistorsionAudioProcessor::Threshold), juce::dontSendNotification);
+    Volume.setValue(processor.getParameter(DistorsionAudioProcessor::Volume), juce::dontSendNotification);
+    Bypass.setToggleState(processor.getParameter(DistorsionAudioProcessor::MasterBypass) == 1.0f ? true : false, juce::dontSendNotification);
+
+    GainLabel.setText("Gain\n" + processor.getParameterText(DistorsionAudioProcessor::Gain), juce::dontSendNotification);
+    ThresholdLabel.setText("Threshold\n" + processor.getParameterText(DistorsionAudioProcessor::Threshold), juce::dontSendNotification);
+    VolumeLabel.setText("Volume\n" + processor.getParameterText(DistorsionAudioProcessor::Volume), juce::dontSendNotification);
 }
