@@ -14,7 +14,9 @@
 //==============================================================================
 /**
 */
-class DistorsionAudioProcessorEditor  : public juce::AudioProcessorEditor
+class DistorsionAudioProcessorEditor  : public juce::AudioProcessorEditor,
+    private juce::Slider::Listener,
+    private juce::Button::Listener
 {
 public:
     DistorsionAudioProcessorEditor (DistorsionAudioProcessor&);
@@ -38,6 +40,9 @@ private:
     juce::Label VolumeLabel;
 
     juce::ToggleButton Bypass;
+    
+    void sliderValueChanged(juce::Slider *changedSlider) override;
+    void buttonClicked(juce::Button* clickedButton) override;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DistorsionAudioProcessorEditor)
 };

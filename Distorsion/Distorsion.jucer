@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="tJ1fwo" name="Distorsion" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="MiyataRyo"
-              companyCopyright="MiyataRyo" displaySplashScreen="1" pluginCharacteristicsValue="pluginIsMidiEffectPlugin">
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" displaySplashScreen="1"
+              pluginCharacteristicsValue="pluginIsMidiEffectPlugin">
   <MAINGROUP id="VrBHns" name="Distorsion">
     <GROUP id="{2D372D22-9B08-B224-020C-6960B6FE1BCC}" name="Source">
       <FILE id="s7h3Pk" name="PluginProcessor.cpp" compile="1" resource="0"
